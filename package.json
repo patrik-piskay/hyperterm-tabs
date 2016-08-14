@@ -1,0 +1,22 @@
+{
+  "name": "hyperterm-tabs",
+  "version": "1.0.0",
+  "description": "Draggable tabs suport for HyperTerm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Patrik Piskay <piskay.patrik@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^3.3.0",
+    "eslint-config-airbnb": "^10.0.1",
+    "eslint-config-airbnb-base": "^5.0.2",
+    "eslint-plugin-import": "^1.13.0",
+    "eslint-plugin-jsx-a11y": "^2.1.0",
+    "eslint-plugin-react": "^6.0.0"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5"
+  }
+}
