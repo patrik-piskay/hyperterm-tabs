@@ -1,10 +1,10 @@
 # hyperterm-tabs
 
-> [HyperTerm](https://hyperterm.org) drag&drop tabs support
+> [HyperTerm](https://hyperterm.org) drag&drop tabs support plugin
 
-<p align="center">
-    ![](hyperterm-tabs.gif)
-</p>
+<div align="center">
+    <img src="https://raw.githubusercontent.com/patrik-piskay/hyperterm-tabs/master/hyperterm-tabs.gif">
+</div>
 
 ## Install
 
