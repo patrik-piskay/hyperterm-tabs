@@ -56,14 +56,14 @@ const orderTabs = (orderedUids, tabs) => {
 
 exports.mapHeaderState = (state, map) => Object.assign({}, map, {
     cols: state.ui.cols,
-    sessions_ordered: state.sessions.sessions_ordered,
-    tabs: state.sessions.sessions_ordered ? orderTabs(state.sessions.sessions_ordered, map.tabs) : map.tabs,
+    sessionsOrdered: state.sessions.sessionsOrdered,
+    tabs: state.sessions.sessionsOrdered ? orderTabs(state.sessions.sessionsOrdered, map.tabs) : map.tabs,
 });
 
 exports.getTabsProps = (parentProps, props) => Object.assign({}, props, {
     tabWidth: window.innerWidth / props.tabs.length,
     moveTab: parentProps.moveTab,
-    sessions_ordered: parentProps.sessions_ordered,
+    sessionsOrdered: parentProps.sessionsOrdered,
 });
 
 exports.getTabProps = (tab, parentProps, props) => Object.assign({}, props, {
@@ -93,20 +93,20 @@ exports.reduceSessions = (state, action) => {
 
     switch (action.type) {
         case 'SESSION_ADD':
-            return state.set('sessions_ordered', (state.sessions_ordered || []).concat([action.uid]));
+            return state.set('sessionsOrdered', (state.sessionsOrdered || []).concat([action.uid]));
 
         case 'SESSION_USER_EXIT':
         case 'SESSION_PTY_EXIT':
-            return state.set('sessions_ordered', state.sessions_ordered.filter(uid => uid !== action.uid));
+            return state.set('sessionsOrdered', state.sessionsOrdered.filter(uid => uid !== action.uid));
 
         case MOVE_TAB:
-            currentIndex = state.sessions_ordered.indexOf(action.uid);
+            currentIndex = state.sessionsOrdered.indexOf(action.uid);
             newIndex = calculateNewIndex(currentIndex, action.position, action.isAfter);
 
             if (currentIndex === newIndex) return state;
 
             if (currentIndex < newIndex) {
-                return state.updateIn(['sessions_ordered'], (sessions) => {
+                return state.updateIn(['sessionsOrdered'], (sessions) => {
                     const sessionsOrder = sessions.asMutable();
                     // insert to the new index
                     sessionsOrder.splice(newIndex, 0, action.uid);
@@ -116,7 +116,7 @@ exports.reduceSessions = (state, action) => {
                 });
             }
 
-            return state.updateIn(['sessions_ordered'], (sessions) => {
+            return state.updateIn(['sessionsOrdered'], (sessions) => {
                 const sessionsOrder = sessions.asMutable();
                 // remove from the old index
                 sessionsOrder.splice(currentIndex, 1);
