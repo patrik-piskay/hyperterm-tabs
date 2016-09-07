@@ -136,6 +136,60 @@ exports.mapHeaderDispatch = (dispatch, map) => Object.assign({}, map, {
     },
 });
 
+const setActiveSession = (prevUid, newUid) => (dispatch) => {
+    dispatch({
+        type: 'SESSION_SET_ACTIVE',
+        uid: newUid,
+        effect() {
+            // fork from Hyperterm
+            // TODO: this goes away when we are able to poll
+            // for the title ourseleves, instead of relying
+            // on Session and focus/blur to subscribe
+            if (prevUid) window.rpc.emit('blur', { prevUid });
+            window.rpc.emit('focus', { uid: newUid });
+        },
+    });
+};
+
+exports.middleware = ({ dispatch, getState }) => (next) => (action) => {
+    switch (action.type) {
+        case 'UI_MOVE_LEFT':
+            next({
+                type: 'UI_MOVE_LEFT',
+                effect() {
+                    const { sessions } = getState();
+                    const uid = sessions.activeUid;
+                    const sessionUids = sessions.sessionsOrdered;
+                    const index = sessionUids.indexOf(uid);
+                    const nextTabId = sessionUids[index - 1] || sessionUids[sessionUids.length - 1];
+                    if (nextTabId && uid !== nextTabId) {
+                        dispatch(setActiveSession(uid, nextTabId));
+                    }
+                },
+            });
+            break;
+
+        case 'UI_MOVE_RIGHT':
+            next({
+                type: 'UI_MOVE_RIGHT',
+                effect() {
+                    const { sessions } = getState();
+                    const uid = sessions.activeUid;
+                    const sessionUids = sessions.sessionsOrdered;
+                    const index = sessionUids.indexOf(uid);
+                    const nextTabId = sessionUids[index + 1] || sessionUids[0];
+                    if (nextTabId && uid !== nextTabId) {
+                        dispatch(setActiveSession(uid, nextTabId));
+                    }
+                },
+            });
+            break;
+
+        default:
+            next(action);
+    }
+};
+
 exports.decorateTab = (Tab, { React }) => {
     class DecoratedTab extends React.Component {
         constructor() {
