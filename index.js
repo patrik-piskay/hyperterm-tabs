@@ -153,6 +153,26 @@ const setActiveSession = (prevUid, newUid) => (dispatch) => {
 
 exports.middleware = ({ dispatch, getState }) => (next) => (action) => {
     switch (action.type) {
+        case 'UI_MOVE_TO':
+            next({
+                type: 'UI_MOVE_TO',
+                effect() {
+                    const i = action.index;
+                    const { sessions } = getState();
+                    const uid = sessions.activeUid;
+                    const sessionUids = sessions.sessionsOrdered;
+
+                    if (uid === sessionUids[i]) {
+                        console.log('ignoring same uid');
+                    } else if (sessionUids[i] != null) {
+                        dispatch(setActiveSession(uid, sessionUids[i]));
+                    } else {
+                        console.log('ignoring inexistent index', i);
+                    }
+                },
+            });
+            break;
+
         case 'UI_MOVE_LEFT':
             next({
                 type: 'UI_MOVE_LEFT',
