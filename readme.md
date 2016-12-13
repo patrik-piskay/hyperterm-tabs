@@ -12,6 +12,6 @@ Add `hyperterm-tabs` to the `plugins` list in your `~/.hyperterm.js` config file
 
 ## Usage
 
-As drag&drop is currently [not possible](https://github.com/zeit/hyper/issues/911), only reordering with keyboard shortcuts is possible.
+As drag&drop is currently [not possible](https://github.com/zeit/hyper/issues/911), only reordering with keyboard shortcuts is available.
 
 To move active tab around, press `cmd+shift+left/right arrow`
