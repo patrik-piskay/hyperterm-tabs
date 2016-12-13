@@ -2,7 +2,13 @@
   "name": "hyperterm-tabs",
   "version": "1.2.1",
   "description": "Draggable tabs suport for HyperTerm",
-  "keywords": ["hyperterm", "tab", "drag", "drop", "drag&drop"],
+  "keywords": [
+    "hyperterm",
+    "tab",
+    "drag",
+    "drop",
+    "drag&drop"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,6 +24,7 @@
     "eslint-plugin-react": "^6.0.0"
   },
   "dependencies": {
-    "classnames": "^2.2.5"
+    "classnames": "^2.2.5",
+    "mousetrap": "^1.6.0"
   }
 }
