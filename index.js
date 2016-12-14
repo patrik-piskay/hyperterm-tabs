@@ -366,8 +366,8 @@ exports.decorateTerm = (Term, { React }) => {
 
                     this.keys = new Mousetrap(doc);
 
-                    this.keys.bind('mod+ctrl+left', () => { this.props.shortcutMoveTab(LEFT); });
-                    this.keys.bind('mod+ctrl+right', () => { this.props.shortcutMoveTab(RIGHT); });
+                    this.keys.bind('alt+shift+left', () => { this.props.shortcutMoveTab(LEFT); });
+                    this.keys.bind('alt+shift+right', () => { this.props.shortcutMoveTab(RIGHT); });
                 }
             }
         }
