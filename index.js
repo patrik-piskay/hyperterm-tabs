@@ -1,4 +1,3 @@
-const css = require('classnames');
 const Mousetrap = require('mousetrap');
 
 const LEFT = 'left';
@@ -8,39 +7,6 @@ const RIGHT = 'right';
 //     titleBarStyle: 'default',
 //     transparent: false,
 // });
-
-exports.decorateConfig = config => Object.assign({}, config, {
-    css: `
-        ${config.css || ''}
-        .tabs_list {
-            margin-left: 0;
-        }
-        .tab_drop {
-            flex-grow: 1;
-            cursor: pointer;
-            -webkit-user-drag: element;
-        }
-        .tab_drop_wrapper {
-            position: relative;
-        }
-        .tab_drop_left:before,
-        .tab_drop_right:after {
-            content: "";
-            width: 2px;
-            background-color: #528bff;
-            z-index: 2;
-            position: absolute;
-            height: 100%;
-            top: 0;
-        }
-        .tab_drop_left:before {
-            left: 0;
-        }
-        .tab_drop_right:after {
-            right: 0;
-        }
-`,
-});
 
 const orderTabs = (orderedUids, tabs) => {
     const orderedTabs = [];
@@ -271,79 +237,6 @@ exports.middleware = ({ dispatch, getState }) => (next) => (action) => {
     }
 };
 
-exports.decorateTab = (Tab, { React }) => {
-    class DecoratedTab extends React.Component {
-        constructor() {
-            super();
-
-            this.drop = this.drop.bind(this);
-            this.setDroppable = this.setDroppable.bind(this);
-            this.unsetDroppable = this.unsetDroppable.bind(this);
-
-            this.state = {
-                droppable: false,
-                droppablePosition: LEFT,
-            };
-        }
-
-        onDragStart(event, tabId) {
-            event.dataTransfer.setData('tabId', tabId);
-
-            if (!this.props.isActive) {
-                this.props.onSelect();
-            }
-        }
-
-        setDroppable(event) {
-            event.preventDefault();
-
-            const { tabWidth, tabPosition } = this.props;
-
-            this.setState({
-                droppable: true,
-                droppablePosition: ((tabWidth * tabPosition) + (tabWidth / 2)) < event.clientX ?
-                    RIGHT :
-                    LEFT,
-            });
-        }
-
-        unsetDroppable() {
-            this.setState({ droppable: false });
-        }
-
-        drop(event) {
-            event.preventDefault();
-            const tabId = event.dataTransfer.getData('tabId');
-
-            this.props.moveTab(tabId, this.props.tabPosition, this.state.droppablePosition === RIGHT);
-
-            this.setState({ droppable: false });
-        }
-
-        render() {
-            return React.createElement('div', {
-                draggable: true,
-                onDragStart: (event) => this.onDragStart(event, this.props.tabId),
-                onDrop: this.drop,
-                onDragOver: this.setDroppable,
-                onDragLeave: this.unsetDroppable,
-                className: 'tab_drop',
-            }, React.createElement('div', {
-                className: css({
-                    tab_drop_wrapper: true,
-                    tab_drop_left: (this.state.droppable && this.state.droppablePosition === LEFT),
-                    tab_drop_right: (this.state.droppable && this.state.droppablePosition === RIGHT),
-                }),
-            }, React.createElement(Tab, this.props)));
-        }
-    }
-
-    DecoratedTab.contextTypes = {
-        store: React.PropTypes.object,
-    };
-
-    return DecoratedTab;
-};
 
 exports.decorateTerm = (Term, { React }) => {
     class DecoratedTerm extends React.Component {
