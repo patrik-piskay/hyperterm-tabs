@@ -15,6 +15,10 @@
   },
   "author": "Patrik Piskay <piskay.patrik@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patrik-piskay/hyperterm-tabs.git"
+  },
   "devDependencies": {
     "eslint": "^3.3.0",
     "eslint-config-airbnb": "^10.0.1",
