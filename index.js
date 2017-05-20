@@ -255,7 +255,8 @@ exports.decorateTerm = (Term, { React }) => {
                 }
 
                 if (this.props.isTermActive) {
-                    const doc = this.el.props.term.document_;
+                    const term = this.el.term || this.el.props.term;
+                    const doc = term.document_;
 
                     this.keys = new Mousetrap(doc);
 
