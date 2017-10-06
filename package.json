@@ -2,7 +2,13 @@
   "name": "hyperterm-tabs",
   "version": "1.3.5",
   "description": "Draggable tabs suport for HyperTerm",
-  "keywords": ["hyperterm", "tab", "drag", "drop", "drag&drop"],
+  "keywords": [
+    "hyperterm",
+    "tab",
+    "drag",
+    "drop",
+    "drag&drop"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
