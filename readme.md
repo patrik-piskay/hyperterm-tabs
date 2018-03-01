@@ -22,7 +22,7 @@ module.exports = {
     ...
     hyperTabsMove: {
       moveLeft: 'command+[',
-      moveRight: ['command+]', 'l e f t']
+      moveRight: ['command+]', 'r i g h t']
     }
     ...
   }
