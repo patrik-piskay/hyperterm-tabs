@@ -279,14 +279,19 @@ exports.decorateTerm = (Term, { React }) => {
 
         if (this.props.isTermActive) {
           const term = this.el.term || this.el.props.term;
-          const doc = term.document_; // eslint-disable-line no-underscore-dangle
+          this.keys = new Mousetrap(term.element);
 
-          this.keys = new Mousetrap(doc);
+          const keyMap = {
+            moveLeft: (window.config.getConfig().hyperTabsMove || {})
+              .moveLeft || ['alt+left', 'ctrl+alt+shift+left'],
+            moveRight: (window.config.getConfig().hyperTabsMove || {})
+              .moveRight || ['alt+right', 'ctrl+alt+shift+right'],
+          };
 
-          this.keys.bind(['alt+shift+left', 'ctrl+alt+shift+left'], () => {
+          this.keys.bind(keyMap.moveLeft, () => {
             this.props.shortcutMoveTab(LEFT);
           });
-          this.keys.bind(['alt+shift+right', 'ctrl+alt+shift+right'], () => {
+          this.keys.bind(keyMap.moveRight, () => {
             this.props.shortcutMoveTab(RIGHT);
           });
         }

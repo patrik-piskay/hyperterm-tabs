@@ -30,6 +30,6 @@
     "prettier": "^1.7.4"
   },
   "dependencies": {
-    "mousetrap": "^1.6.0"
+    "mousetrap": "1.6.0"
   }
 }
