@@ -288,12 +288,20 @@ exports.decorateTerm = (Term, { React }) => {
               .moveRight || ['alt+right', 'ctrl+alt+shift+right'],
           };
 
-          this.keys.bind(keyMap.moveLeft, () => {
-            this.props.shortcutMoveTab(LEFT);
-          });
-          this.keys.bind(keyMap.moveRight, () => {
-            this.props.shortcutMoveTab(RIGHT);
-          });
+          this.keys.bind(
+            keyMap.moveLeft,
+            () => {
+              this.props.shortcutMoveTab(LEFT);
+            },
+            'keyup',
+          );
+          this.keys.bind(
+            keyMap.moveRight,
+            () => {
+              this.props.shortcutMoveTab(RIGHT);
+            },
+            'keyup',
+          );
         }
       }
     }
