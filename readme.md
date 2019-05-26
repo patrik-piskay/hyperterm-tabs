@@ -1,6 +1,6 @@
 # hyperterm-tabs
 
-> [HyperTerm](https://hyperterm.org) tabs reordering support plugin
+> [HyperTerm](https://hyper.is) tabs reordering support plugin
 
 <div align="center">
     <img src="https://raw.githubusercontent.com/patrik-piskay/hyperterm-tabs/master/hyperterm-tabs.gif">
